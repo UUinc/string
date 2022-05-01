@@ -11,7 +11,20 @@ typedef struct node
     struct node *prev; 
 }node;
 
-//1.	Saisie : création d’une chaîne de caractères à partir de la saisie d’un utilisateur.
+//Functions Prototype
+node* CreateNode(char);
+node* Add(node*, node*, int);
+node* AddAtStart(node*, node*);
+node* AddAtEnd(node*, node*);
+node* Saisie(node*);
+void Affichage(node*);
+int Longueuer(node*);
+node* Copie(node*);
+node* Concatenation(node*, node*);
+node* Inversion(node*);
+node* Insertion(node*, node*, int);
+
+//0.    LinkedList functions
 node* CreateNode(char _value)
 {
     node* _node = (node*) malloc(sizeof(node));
@@ -20,7 +33,7 @@ node* CreateNode(char _value)
 
     _node->next = _node->prev = NULL;
 }
-node* AddAtEnd(node* head, node* newNode)
+node* Add(node* head, node* newNode, int position)
 {
     node *p = head;
 
@@ -33,21 +46,51 @@ node* AddAtEnd(node* head, node* newNode)
 
         return head;
     }
-    //iterate to the last node in the list
-    while(p->next != head)
-    {
-        p = p->next;
-    }
-    //add the new node
-    //change links in the header and last item
-    p->next->prev = newNode;
-    p->next = newNode;
-    //change links for the new node
-    newNode->next = head;
-    newNode->prev = p;
 
-    return head;
+    //Add at Start
+    if(position <= 1)
+    {
+        newNode->next = head;
+        newNode->prev = head->prev;
+
+        head->prev->next = newNode;
+        head->prev = newNode;
+        
+        head = newNode;
+
+        return head;
+    }
+
+    //Add at End
+    if(position > Longueuer(head))
+    {
+        //iterate to the last node in the list
+        while(p->next != head)
+        {
+            p = p->next;
+        }
+        //add the new node
+        //change links in the header and last item
+        p->next->prev = newNode;
+        p->next = newNode;
+        //change links for the new node
+        newNode->next = head;
+        newNode->prev = p;
+
+        return head;
+    }
+    return NULL;
 }
+node* AddAtStart(node* head, node* newNode)
+{
+    Add(head, newNode, 0);
+}
+node* AddAtEnd(node* head, node* newNode)
+{
+    Add(head, newNode, Longueuer(head) + 1);
+}
+
+//1.	Saisie : création d’une chaîne de caractères à partir de la saisie d’un utilisateur.
 node* Saisie(node* head)
 {
     char c;
@@ -184,7 +227,10 @@ node* Inversion(node* head)
     return head;
 }
 //7.	Insertion : insertion d’une chaîne de caractères dans une autre chaîne caractères à une position choisie par l’utilisateur.
+node* Insertion(node* head, node* str, int position)
+{
 
+}
 //8.	Suppression : suppression d’un certain nombre de caractères, choisi par l’utilisateur, 
 //dans une chaîne à partir d’une position choisie par l’utilisateur.
 
