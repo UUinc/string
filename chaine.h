@@ -33,8 +33,10 @@ node* CreateNode(char _value)
 
     _node->next = _node->prev = NULL;
 }
+//optimize this shitty code you idiot -_-
 node* Add(node* head, node* newNode, int position)
 {
+    int counter=0;
     node *p = head;
 
     if(head == NULL)
@@ -79,7 +81,28 @@ node* Add(node* head, node* newNode, int position)
 
         return head;
     }
-    return NULL;
+
+    //At position
+    //iterate to the last node in the list
+    while(p->next != head)
+    {
+        counter++;
+        if(counter == position)
+        {
+            break;
+        }
+
+        p = p->next;
+    }
+    //add the new node
+    //change links in the header and last item
+    newNode->prev = p->prev;
+    newNode->next = p;
+
+    p->prev->next = newNode;
+    p->prev = newNode;
+
+    return head;
 }
 node* AddAtStart(node* head, node* newNode)
 {
@@ -229,7 +252,28 @@ node* Inversion(node* head)
 //7.	Insertion : insertion d’une chaîne de caractères dans une autre chaîne caractères à une position choisie par l’utilisateur.
 node* Insertion(node* head, node* str, int position)
 {
+    node* p = str;
 
+    if(str == NULL)
+    {
+        return head;
+    }
+
+    if(head == NULL)
+    {
+        head = Copie(str);
+        return head;
+    }
+
+    while(p->next != str)
+    {
+        head = Add(head, CreateNode(p->value), position);
+        position++;
+        p = p->next;
+    }
+    head = Add(head, CreateNode(p->value), position);
+
+    return head;
 }
 //8.	Suppression : suppression d’un certain nombre de caractères, choisi par l’utilisateur, 
 //dans une chaîne à partir d’une position choisie par l’utilisateur.
