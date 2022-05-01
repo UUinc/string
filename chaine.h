@@ -55,9 +55,13 @@ node* Saisie(node* head)
     do  
     {  
         c = getchar();
+
+        if(c == '\n' || c == EOF)
+            break;
+
         //store character in a linked list
         head = AddAtEnd(head, CreateNode(c)); 
-    } while (c != '\n');
+    } while (1);
 
     return head;
 }
@@ -78,6 +82,7 @@ void Affichage(node* head)
         putchar(p->value);
         p = p->next;
     }
+    putchar(p->value);
 }
 
 //3.	Longueur : renvoi de la longueur d’une chaîne de caractères.
@@ -96,6 +101,8 @@ int Longueuer(node* head)
         len++;
         p = p->next;
     }
+    len++;
+    
     return len;
 }
 //4.	Copie : création de la copie d’une chaîne de caractères à partir d’une chaîne déjà existante.
@@ -122,6 +129,29 @@ node* Copie(node* head)
 }
 //5.	Concaténation : création d’une nouvelle chaîne de caractères égale à la concaténation de deux chaînes existantes 
 //(Les 2 chaînes de base ne doivent pas être modifiées !).
+node* Concatenation(node* str1, node* str2)
+{
+    node *p = str2;
+    node *str3 = NULL;
+
+    str3 = Copie(str1);
+
+    if(str2 == NULL)
+    {
+        return str3;
+    }
+
+    while(p->next != str2)
+    {
+        //store character in a the new linked list
+        str3 = AddAtEnd(str3, CreateNode(p->value));
+        p = p->next;
+    }
+    //store the last character in a the new linked list
+    str3 = AddAtEnd(str3, CreateNode(p->value));
+
+    return str3;
+}
 
 //6.	Inversion : inversion d’une chaîne de caractères déjà existante.
 

@@ -20,6 +20,8 @@ int main()
     chaine2 = Copie(chaine);
     Affichage(chaine2);
 
+    Affichage(Concatenation(chaine, chaine2));
+
     getch();
     return 0;
 }
