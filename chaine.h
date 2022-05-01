@@ -70,6 +70,7 @@ void Affichage(node* head)
     if(head == NULL)
     {
         printf("");
+        return;
     }
 
     while(p->next != head)
@@ -80,9 +81,45 @@ void Affichage(node* head)
 }
 
 //3.	Longueur : renvoi de la longueur d’une chaîne de caractères.
+int Longueuer(node* head)
+{
+    int len = 0;
+    node *p = head;
 
+    if(head == NULL)
+    {
+        return 0;
+    }
+
+    while(p->next != head)
+    {
+        len++;
+        p = p->next;
+    }
+    return len;
+}
 //4.	Copie : création de la copie d’une chaîne de caractères à partir d’une chaîne déjà existante.
+node* Copie(node* head)
+{
+    node *p = head;
+    node *newNode = NULL;
 
+    if(head == NULL)
+    {
+        return NULL;
+    }
+
+    while(p->next != head)
+    {
+        //store character in a the new linked list
+        newNode = AddAtEnd(newNode, CreateNode(p->value));
+        p = p->next;
+    }
+    //store the last character in a the new linked list
+    newNode = AddAtEnd(newNode, CreateNode(p->value));
+
+    return newNode;
+}
 //5.	Concaténation : création d’une nouvelle chaîne de caractères égale à la concaténation de deux chaînes existantes 
 //(Les 2 chaînes de base ne doivent pas être modifiées !).
 
