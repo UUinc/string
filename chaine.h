@@ -23,6 +23,7 @@ node* Copie(node*);
 node* Concatenation(node*, node*);
 node* Inversion(node*);
 node* Insertion(node*, node*, int);
+node* Suppression(node*, int, int);
 
 //0.    LinkedList functions
 node* CreateNode(char _value)
@@ -277,7 +278,33 @@ node* Insertion(node* head, node* str, int position)
 }
 //8.	Suppression : suppression d’un certain nombre de caractères, choisi par l’utilisateur, 
 //dans une chaîne à partir d’une position choisie par l’utilisateur.
+node* Suppression(node* head, int position, int length)
+{
+    node* p = head;
+    node* tempNext;
+    int count = 0;
 
+    if(head == NULL)
+    {
+        return head;
+    }
+
+    while(p->next != head)
+    {
+        count++;
+        tempNext = p->next;
+
+        if(count >= position && count < position + length)
+        {
+            p->prev->next = p->next;
+            p->next->prev = p->prev;
+            free(p);
+        }
+        p = tempNext;
+    }
+
+    return head;
+}
 //9.	Recherche : recherche dans une chaîne de caractères toutes les occurrences d’une sous- chaîne donnée 
 //en renvoyant toutes les positions de cette dernière le cas échéant.
 
