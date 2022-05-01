@@ -102,7 +102,7 @@ int Longueuer(node* head)
         p = p->next;
     }
     len++;
-    
+
     return len;
 }
 //4.	Copie : création de la copie d’une chaîne de caractères à partir d’une chaîne déjà existante.
@@ -154,7 +154,35 @@ node* Concatenation(node* str1, node* str2)
 }
 
 //6.	Inversion : inversion d’une chaîne de caractères déjà existante.
+node* Inversion(node* head)
+{
+    node* p = head;
 
+    node* newHead = head->prev;
+    node* tempNext;
+
+    if(head == NULL)
+    {
+        return NULL;
+    }
+
+    while(p->next != head)
+    {
+        //swap next with prev
+        tempNext = p->next;
+        p->next = p->prev;
+        p->prev = tempNext;
+
+        p = tempNext;
+    }
+    //swap next with prev
+    tempNext = p->next;
+    p->next = p->prev;
+    p->prev = tempNext;
+
+    head = newHead;
+    return head;
+}
 //7.	Insertion : insertion d’une chaîne de caractères dans une autre chaîne caractères à une position choisie par l’utilisateur.
 
 //8.	Suppression : suppression d’un certain nombre de caractères, choisi par l’utilisateur, 

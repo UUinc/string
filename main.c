@@ -13,14 +13,11 @@ int main()
     printf (" Enter the characters from the keyboard (Press Enter button to stop).\n");  
 
     chaine = Saisie(chaine);
+    printf("\n");
     Affichage(chaine);
-    printf("\nlongueur : %d\n", Longueuer(chaine));
-
-    Affichage(chaine2);
-    chaine2 = Copie(chaine);
-    Affichage(chaine2);
-
-    Affichage(Concatenation(chaine, chaine2));
+    chaine = Inversion(chaine);
+    printf("\n");
+    Affichage(chaine);
 
     getch();
     return 0;
