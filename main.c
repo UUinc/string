@@ -1,14 +1,16 @@
 #include <stdio.h>
 #include <conio.h>
+#include <ctype.h>  
 #include "chaine.h"
 
+#define clear() printf("\033[H\033[J")
+#define gotoxy(x,y) printf("\033[%d;%dH", (y), (x))
 
-int main()
-{
-    char c;
-    node* chaine = NULL;
+int main()  
+{  
+    node *chaine = NULL;
+    printf (" Enter the characters from the keyboard (Press Enter button to stop).\n");  
 
-    printf("Enter character: ");
     chaine = Saisie(chaine);
     Affichage(chaine);
 

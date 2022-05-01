@@ -4,9 +4,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define clear() printf("\033[H\033[J")
-#define gotoxy(x,y) printf("\033[%d;%dH", (y), (x))
-
 typedef struct node
 {
     char value;
@@ -29,13 +26,10 @@ node* AddAtEnd(node* head, node* newNode)
 
     if(head == NULL)
     {
-        head = CreateNode('~');
+        head = newNode;
 
-        newNode->next = head;
-        head->next = newNode;
-
-        newNode->prev = head;
-        head->prev = newNode;
+        head->next = head;
+        head->prev = head;
 
         return head;
     }
@@ -54,68 +48,16 @@ node* AddAtEnd(node* head, node* newNode)
 
     return head;
 }
-char GetKey() 
-{
-    int key;
-    if (kbhit()) 
-    {
-        key=getch();
-        if (key == 0) 
-        {
-            do 
-            {
-                key=getch();
-            } while(key==0);
-
-            switch (key)
-            {
-                case 72:
-                    //up
-                    break;
-                case 75:
-                    //left
-                    printf("\033[1D"); // Move left X column;
-                    break;
-                case 77:
-                    //right
-                    printf("\033[1C"); // Move right X column;
-                    break;
-                case 80:
-                    //down
-                    break;
-                case 83:
-                    //delete
-                    clear();
-                    break;
-            }
-            return 0;
-        }
-        return key;
-    }
-    return 0;
-}
 node* Saisie(node* head)
 {
     char c;
 
-    do
-    {
-        c = GetKey();
-
-        if(c == 8)
-        {
-            printf("\b \b");
-        }
-
-        if(c == 9 || (c >= 32 && c <= 126))
-        {
-            putchar(c);
-
-            //store character in a linked list
-            head = AddAtEnd(head, CreateNode(c));
-        }
-    }while(c != '\r');
-    putchar('\n');
+    do  
+    {  
+        c = getchar();
+        //store character in a linked list
+        head = AddAtEnd(head, CreateNode(c)); 
+    } while (c != '\n');
 
     return head;
 }
@@ -132,9 +74,7 @@ void Affichage(node* head)
 
     while(p->next != head)
     {
-        if(p != head)
-            putchar(p->value);
-
+        putchar(p->value);
         p = p->next;
     }
 }
