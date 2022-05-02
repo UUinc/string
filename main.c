@@ -16,7 +16,9 @@ int main()
     printf ("Enter 2 : ");  
     chaine2 = Saisie(chaine2);
 
-    Recherche(chaine, chaine2);
+    Recherche_Info(Recherche(chaine, chaine2));
+
+    
 
     getch();
     return 0;

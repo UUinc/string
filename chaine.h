@@ -27,7 +27,9 @@ node* Concatenation(node*, node*);
 node* Inversion(node*);
 node* Insertion(node*, node*, int);
 node* Suppression(node*, int, int);
-void Recherche(node*, node*);
+int* Recherche(node*, node*);
+//Tools function
+void Recherche_Info(int*);
 
 //0.    LinkedList functions
 node* CreateNode(char _value)
@@ -333,7 +335,7 @@ node* Suppression(node* head, int position, int length)
 }
 //9.	Recherche : recherche dans une chaîne de caractères toutes les occurrences d’une sous- chaîne donnée 
 //en renvoyant toutes les positions de cette dernière le cas échéant.
-void Recherche(node* head, node* str)
+int* Recherche(node* head, node* str)
 {
     int i, j, k;
     int head_len = Longueuer(head);
@@ -342,16 +344,17 @@ void Recherche(node* head, node* str)
     int position = -1;
     int found = 0;
 
+    //dynamic array
+    int *positions = (int*) malloc(sizeof(int));
+
     if(head == NULL || str == NULL)
     {
-        printf("la chaine est vide");
-        return;
+        return NULL;
     }
 
     if(head_len < str_len)
     {
-        printf("Aucune occurence a ete trouve");
-        return;
+        return NULL;
     }
 
     for(i=0; i <head_len; i++)
@@ -381,8 +384,11 @@ void Recherche(node* head, node* str)
         if(j == str_len)
         {
             found++;
-            printf("Occurence n\xF8%d = %d\n", found, position + 1);
+            *positions = found;
 
+            positions = (int*) realloc(positions, (found + 1) * sizeof(int));
+            *(positions + found) = position + 1;
+            
             //reset positon for the next occurence;
             position = -1;
         }
@@ -390,12 +396,26 @@ void Recherche(node* head, node* str)
 
     if(found == 0)
     {
-        printf("Aucune occurence a ete trouve");
-        return;
+        return NULL;
     }
+    //the length of the array is the first value
+    return positions;
 }
 //10.	Remplacer : remplacement dans une chaîne de caractères de toutes les occurrences d’une sous-chaîne 
 //donnée par une autre sous-chaîne donnée.
 
+//Tools functions
+void Recherche_Info(int* data)
+{
+    if(data == NULL)
+    {
+        printf("Aucune occurrence n'a ete trouvee\n");
+        return;
+    }
 
+    for(int i=1; i<= *data; i++)
+    {
+        printf("Occurence n\xF8%d = %d\n", i, *(data+i));
+    }
+}
 #endif
