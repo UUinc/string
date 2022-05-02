@@ -12,10 +12,13 @@ typedef struct node
 }node;
 
 //Functions Prototype
+//linked list functions
 node* CreateNode(char);
 node* Add(node*, node*, int);
 node* AddAtStart(node*, node*);
 node* AddAtEnd(node*, node*);
+char GetCharFromList(node*, int);
+//Program functions
 node* Saisie(node*);
 void Affichage(node*);
 int Longueuer(node*);
@@ -24,6 +27,7 @@ node* Concatenation(node*, node*);
 node* Inversion(node*);
 node* Insertion(node*, node*, int);
 node* Suppression(node*, int, int);
+void Recherche(node*, node*);
 
 //0.    LinkedList functions
 node* CreateNode(char _value)
@@ -113,7 +117,29 @@ node* AddAtEnd(node* head, node* newNode)
 {
     Add(head, newNode, Longueuer(head) + 1);
 }
+char GetCharFromList(node* head, int index)
+{
+    node* p = head;
+    int counter = 0;
 
+    while(p->next != head)
+    {
+        if(counter == index)
+        {
+            return p->value;
+        }
+
+        p = p->next;
+        counter++;
+    }
+    if(counter == index)
+    {
+        return p->value;
+    }
+
+    puts("Erreur index out of range");
+    return '\0';
+}
 //1.	Saisie : création d’une chaîne de caractères à partir de la saisie d’un utilisateur.
 node* Saisie(node* head)
 {
@@ -307,7 +333,56 @@ node* Suppression(node* head, int position, int length)
 }
 //9.	Recherche : recherche dans une chaîne de caractères toutes les occurrences d’une sous- chaîne donnée 
 //en renvoyant toutes les positions de cette dernière le cas échéant.
+void Recherche(node* head, node* str)
+{
+    int i, j, k;
+    int head_len = Longueuer(head);
+    int str_len = Longueuer(str);
 
+    int counter = 0;
+    int found = 0;
+
+    if(head == NULL || str == NULL)
+    {
+        printf("la chaine est vide");
+        return;
+    }
+
+    if(head_len < str_len)
+    {
+        printf("Aucune occurence a ete trouve");
+        return;
+    }
+
+    for(i=0; i <head_len; i++)
+    {
+        for(j=0, k=i; j<str_len; j++)
+        {
+            if(GetCharFromList(head, k) != GetCharFromList(str, j))
+                break;
+
+            k++;
+            if(k >= head_len)
+            {
+                j++;
+                //break from the main loop
+                i = head_len;
+                break;
+            }
+        }
+        if(j == str_len)
+        {
+            found++;
+        }
+    }
+
+    if(found == 0)
+    {
+        printf("Aucune occurence a ete trouve");
+        return;
+    }
+    printf("\nfound : %d\n", found);
+}
 //10.	Remplacer : remplacement dans une chaîne de caractères de toutes les occurrences d’une sous-chaîne 
 //donnée par une autre sous-chaîne donnée.
 

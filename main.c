@@ -11,16 +11,12 @@ int main()
     node *chaine = NULL;
     node *chaine2 = NULL;
     
-    printf ("Enter : ");  
+    printf ("Enter 1 : ");  
     chaine = Saisie(chaine);
+    printf ("Enter 2 : ");  
+    chaine2 = Saisie(chaine2);
 
-    printf("\n");
-    Affichage(chaine);
-
-    chaine = Suppression(chaine, 2, 5);
-
-    printf("\n");
-    Affichage(chaine);
+    Recherche(chaine, chaine2);
 
     getch();
     return 0;
