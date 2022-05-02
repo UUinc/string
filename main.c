@@ -10,14 +10,22 @@ int main()
 {  
     node *chaine = NULL;
     node *chaine2 = NULL;
+    node *chaine3 = NULL;
     
-    printf ("Enter 1 : ");  
+    printf ("Enter   : ");  
     chaine = Saisie(chaine);
-    printf ("Enter 2 : ");  
+    printf ("Find    : ");  
     chaine2 = Saisie(chaine2);
+    printf ("Replace : ");  
+    chaine3 = Saisie(chaine3);
 
-    Recherche_Info(Recherche(chaine, chaine2));
+    puts("");
+    Affichage(chaine);
 
+    chaine = Remplacer(chaine, chaine2, chaine3);
+
+    puts("\n----");
+    Affichage(chaine);
     
 
     getch();

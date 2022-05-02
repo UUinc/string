@@ -17,7 +17,7 @@ node* CreateNode(char);
 node* Add(node*, node*, int);
 node* AddAtStart(node*, node*);
 node* AddAtEnd(node*, node*);
-char GetCharFromList(node*, int);
+char GetCharByIndex(node*, int);
 //Program functions
 node* Saisie(node*);
 void Affichage(node*);
@@ -28,6 +28,7 @@ node* Inversion(node*);
 node* Insertion(node*, node*, int);
 node* Suppression(node*, int, int);
 int* Recherche(node*, node*);
+node* Remplacer(node*, node*, node*);
 //Tools function
 void Recherche_Info(int*);
 
@@ -119,7 +120,7 @@ node* AddAtEnd(node* head, node* newNode)
 {
     Add(head, newNode, Longueuer(head) + 1);
 }
-char GetCharFromList(node* head, int index)
+char GetCharByIndex(node* head, int index)
 {
     node* p = head;
     int counter = 0;
@@ -324,13 +325,31 @@ node* Suppression(node* head, int position, int length)
 
         if(count >= position && count < position + length)
         {
-            p->prev->next = p->next;
             p->next->prev = p->prev;
+            p->prev->next = p->next;
+
+            if(p == head)
+            {
+                head = p->next;
+            }
+
             free(p);
         }
         p = tempNext;
     }
+    count++;
+    if(count >= position && count < position + length)
+    {
+        p->next->prev = p->prev;
+        p->prev->next = p->next;
 
+        if(p == head)
+        {
+            head = p->next;
+        }
+
+        free(p);
+    }
     return head;
 }
 //9.	Recherche : recherche dans une chaîne de caractères toutes les occurrences d’une sous- chaîne donnée 
@@ -346,6 +365,7 @@ int* Recherche(node* head, node* str)
 
     //dynamic array
     int *positions = (int*) malloc(sizeof(int));
+    *positions = 0;
 
     if(head == NULL || str == NULL)
     {
@@ -361,7 +381,7 @@ int* Recherche(node* head, node* str)
     {
         for(j=0, k=i; j<str_len; j++)
         {
-            if(GetCharFromList(head, k) != GetCharFromList(str, j))
+            if(GetCharByIndex(head, k) != GetCharByIndex(str, j))
             {
                 position = -1;
                 break;
@@ -403,6 +423,36 @@ int* Recherche(node* head, node* str)
 }
 //10.	Remplacer : remplacement dans une chaîne de caractères de toutes les occurrences d’une sous-chaîne 
 //donnée par une autre sous-chaîne donnée.
+node* Remplacer(node* str, node* strFind, node* strReplace)
+{
+    int i;
+
+    int strFindLen = Longueuer(strFind);
+    int strReplaceLen = Longueuer(strReplace);
+    int diffPosition = strReplaceLen - strFindLen;
+
+    int *rechercheResultat = Recherche(str, strFind);
+
+    if(str == NULL || strFind == NULL || strReplace == NULL)
+    {
+        return str;
+    }
+
+    //Update recherche data
+    //the first value in the array is the size of the array
+    for(i = 1; i <= *rechercheResultat; i++)
+    {
+        *(rechercheResultat + i) += (diffPosition * (i - 1));
+    }
+    
+    //Replace algorithm
+    for(i = 1; i <= *rechercheResultat; i++)
+    {
+        str = Suppression(str, *(rechercheResultat + i), strFindLen);
+        str = Insertion(str, strReplace, *(rechercheResultat + i));
+    }
+    return str;
+}
 
 //Tools functions
 void Recherche_Info(int* data)
