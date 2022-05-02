@@ -339,7 +339,7 @@ void Recherche(node* head, node* str)
     int head_len = Longueuer(head);
     int str_len = Longueuer(str);
 
-    int counter = 0;
+    int position = -1;
     int found = 0;
 
     if(head == NULL || str == NULL)
@@ -359,7 +359,15 @@ void Recherche(node* head, node* str)
         for(j=0, k=i; j<str_len; j++)
         {
             if(GetCharFromList(head, k) != GetCharFromList(str, j))
+            {
+                position = -1;
                 break;
+            }
+
+            if(position == -1)
+            {
+                position = k;
+            }
 
             k++;
             if(k >= head_len)
@@ -373,6 +381,10 @@ void Recherche(node* head, node* str)
         if(j == str_len)
         {
             found++;
+            printf("Occurence n\xF8%d = %d\n", found, position + 1);
+
+            //reset positon for the next occurence;
+            position = -1;
         }
     }
 
@@ -381,7 +393,6 @@ void Recherche(node* head, node* str)
         printf("Aucune occurence a ete trouve");
         return;
     }
-    printf("\nfound : %d\n", found);
 }
 //10.	Remplacer : remplacement dans une chaîne de caractères de toutes les occurrences d’une sous-chaîne 
 //donnée par une autre sous-chaîne donnée.
