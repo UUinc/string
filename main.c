@@ -25,6 +25,7 @@ int main()
         switch(choice)
         {
             case 1://Saisie
+                fflush(stdin);
                 chaine = Saisie(chaine);
                 break;
             case 2://Affichage
@@ -64,8 +65,10 @@ int main()
                 break;
             case 10://Remplacer
                 printf("find     : ");
+                fflush(stdin);
                 chaine2 = Saisie(chaine2);
                 printf("remplace : ");
+                fflush(stdin);
                 chaine3 = Saisie(chaine3);
                 chaine = Remplacer(chaine, chaine2, chaine3);
                 printf("Bien remplacer");

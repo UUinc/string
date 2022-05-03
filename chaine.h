@@ -18,6 +18,7 @@ node* Add(node*, node*, int);
 node* AddAtStart(node*, node*);
 node* AddAtEnd(node*, node*);
 char GetCharByIndex(node*, int);
+node* Clear(node*);
 //Program functions
 node* Saisie(node*);
 void Affichage(node*);
@@ -142,6 +143,25 @@ char GetCharByIndex(node* head, int index)
 
     puts("Erreur index out of range");
     return '\0';
+}
+node* Clear(node* head)
+{
+    node* p;
+    node* tmpP;
+
+    if(head == NULL)
+        return NULL;
+
+    p = head->prev;
+    while(p != head)
+    {
+        tmpP = p->prev;
+        free(p);
+        p = tmpP;
+    }
+    free(p);
+    head = NULL;
+    return head;
 }
 //1.	Saisie : création d’une chaîne de caractères à partir de la saisie d’un utilisateur.
 node* Saisie(node* head)
