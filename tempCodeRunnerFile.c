@@ -1,1 +1,1 @@
-puts("");
+Clear

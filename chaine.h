@@ -115,11 +115,11 @@ node* Add(node* head, node* newNode, int position)
 }
 node* AddAtStart(node* head, node* newNode)
 {
-    Add(head, newNode, 0);
+    return Add(head, newNode, 0);
 }
 node* AddAtEnd(node* head, node* newNode)
 {
-    Add(head, newNode, Longueuer(head) + 1);
+    return Add(head, newNode, Longueuer(head) + 1);
 }
 char GetCharByIndex(node* head, int index)
 {
@@ -389,12 +389,12 @@ int* Recherche(node* head, node* str)
 
     if(head == NULL || str == NULL)
     {
-        return NULL;
+        return positions;
     }
 
     if(head_len < str_len)
     {
-        return NULL;
+        return positions;
     }
 
     for(i=0; i <head_len; i++)
@@ -434,10 +434,6 @@ int* Recherche(node* head, node* str)
         }
     }
 
-    if(found == 0)
-    {
-        return NULL;
-    }
     //the length of the array is the first value
     return positions;
 }
@@ -477,7 +473,7 @@ node* Remplacer(node* str, node* strFind, node* strReplace)
 //Tools functions
 void Recherche_Info(int* data)
 {
-    if(data == NULL)
+    if(*data == 0)
     {
         printf("Aucune occurrence n'a ete trouvee\n");
         return;
