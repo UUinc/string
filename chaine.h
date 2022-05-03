@@ -475,12 +475,14 @@ void Recherche_Info(int* data)
 {
     if(*data == 0)
     {
+        gotoxy(5, wherey());
         printf("Aucune occurrence n'a ete trouvee\n");
         return;
     }
 
     for(int i=1; i<= *data; i++)
     {
+        gotoxy(5, wherey());
         printf("Occurence n\xF8%d = %d\n", i, *(data+i));
     }
 }
